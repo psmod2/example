@@ -1,0 +1,134 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocks Exercise</title>
+
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="controllers/main.js"></script>
+    <script src="js/app.js"></script>
+    <script src="http://localhost:35729/livereload.js"></script>
+
+  </head>
+
+  <body ng-app="myApp" ng-controller="Main as main">
+
+
+    <div class="row">
+      <div class="large-12 columns">
+          <!-- START: Title Text Blocks-->
+          <h3 class="sectionTitleText">
+            Text Blocks
+            <i class="fa fa-plus-circle textBlockAddNew" ng-click="showHideTextBlockEditor = true"
+                  aria-hidden="true"></i>
+          </h3>
+          <!-- END: Title Text Blocks-->
+
+
+          <!-- START: Editor Text Blocks-->
+          <div class="row animated bounceInLeft editorBlock" ng-show="showHideTextBlockEditor">
+            <div class="large-12 columns">
+              <div class="textBlock ">
+                <input type="text" placeholder="Title" ng-model="main.titleTextBlock"/>
+                <input type="text" placeholder="Body" ng-model="main.bodyTextBlock"/>
+                <button class="button cancelButton" aria-hidden="true" ng-click="main.hideTextBlockEditor()">Cancel</button>
+                <button class="button proceedButton" aria-hidden="true" ng-click="main.addOrUpdateTextBlock()">Save</button>
+              </div>
+            </div>
+          </div>
+          <!-- END: Editor Text Blocks-->
+
+          <!-- START: Existing Text Blocks-->
+          <div class="row">
+            <div class="large-3 columns end" ng-repeat="item in textBlocks track by $index">
+              <div class="textBlockBox">
+                <p>{{item.title}}</p>
+                <p>{{item.body}}</p>
+                <i class="fa fa-trash textBlockTrash" aria-hidden="true" ng-click="main.deleteTextBlock($index)"></i>
+                <i class="fa fa-pencil textBlockPencil" aria-hidden="true" ng-click="main.editTextBlock($index)"></i>
+              </div>
+            </div>
+          </div>
+          <!-- END: Existing Text Blocks-->
+      </div>
+    </div>
+
+
+
+
+
+
+    <div class="row">
+      <div class="large-12 columns">
+          <!-- START: Title Product Blocks-->
+          <h3 class="sectionTitleProducts">
+            Products Block
+            <i class="fa fa-plus-circle textBlockAddNew" ng-click="showHideProductsEditor = true"
+                  aria-hidden="true"></i>
+          </h3>
+          <!-- END: Title Product Blocks-->
+
+
+          <!-- START: Editor Product Blocks-->
+          <div class="row animated bounceInLeft editorBlock" ng-show="showHideProductsEditor">
+            <div class="large-12 columns">
+              <input type="text" placeholder="Product Title" ng-model="main.titleProducts"/>
+            </div>
+
+            <div class="large-6 columns">
+              <h6>Selected Products</h6>
+              <!--TO DO -->
+            </div>
+
+            <div class="large-6 columns rightBorder">
+              <h6>Available Products</h6>
+              <div class="large-3 columns end" ng-repeat="prod in products">
+                <span class="productTitle">{{prod.title}}</span>
+                <img src="{{prod.image}}"/>
+                <i class="fa fa-plus-circle" aria-hidden="true" ng-click=""></i>
+              </div>
+            </div>
+
+            <div class="large-12 columns">
+              <button class="button cancelButton" aria-hidden="true" ng-click="showHideProductsEditor = false">Cancel</button>
+              <button class="button proceedButton" aria-hidden="true" ng-click="">Save</button>
+            </div>
+          </div>
+          <!-- END: Editor Product Blocks-->
+
+
+          <!-- START: Existing Product Blocks-->
+          <div class="row">
+            <div class="large-12 columns end" ng-repeat="item in productBlocks track by $index">
+                <h3>
+                  {{item.type}}
+                  <i class="fa fa-pencil productBlocksEditorPencil" ng-click="main.showHideProductsEditor()"
+                    aria-hidden="true"></i>
+                </h3>
+                <!-- Use 2 repeats, one to go through array of ids in product group
+                the second, to get details from products -->
+                <div class="large-2 columns end" ng-repeat="prod in item.products">
+                  <div ng-repeat="product in products | filter : {id: prod }">
+                    <span class="productTitle">{{product.title}}</span>
+                    <img src="{{product.image}}"/>
+                    <i class="fa fa-trash textBlockTrash" aria-hidden="true" ng-click=""></i>
+                    {{product.price}}
+                  </div>
+                </div>
+            </div>
+          </div>
+          <!-- END: Existing Product Blocks-->
+      </div>
+    </div>
+
+
+  </body>
+</html>
